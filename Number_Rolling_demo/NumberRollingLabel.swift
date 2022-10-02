@@ -27,7 +27,6 @@ class NumberRollingLabel: UILabel {
     fileprivate func addDisplayLink() {
         timer = CADisplayLink(target: self, selector: #selector(self.updateValue(timer:)))
         timer?.add(to: .main, forMode: .default)
-        //timer?.add(to: .main, forMode: .tracking)
     }
     
     @objc fileprivate func updateValue(timer: Timer) {
@@ -40,7 +39,7 @@ class NumberRollingLabel: UILabel {
             self.timer = nil
             progress = totalTime
         }
-        //print("destinationValue = \(destinationValue)")
+        
         setTextValue(value: currentValue)
     }
     

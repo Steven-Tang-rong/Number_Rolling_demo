@@ -32,10 +32,8 @@ class ViewController: UIViewController {
         mainTableView.register(amountNib, forCellReuseIdentifier: "amountNib")
         mainTableView.register(withdrawNib, forCellReuseIdentifier: "withdrawNib")
         mainTableView.register(depositNib, forCellReuseIdentifier: "depositNib")
-        
-        //mainTableView.tableFooterView = UIView()
     }
-
+    
 }
 
 extension ViewController: UITableViewDataSource {
@@ -53,8 +51,8 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = indexPath.section
         let row = indexPath.row
+        let section = indexPath.section
         
         if section == 0 {
             amountCell = tableView.dequeueReusableCell(withIdentifier: "amountNib", for: indexPath) as? AmountCellTableViewCell
@@ -84,7 +82,6 @@ extension ViewController: UITableViewDataSource {
             
             return depositCell
         }
-        
     }
     
 }
@@ -105,32 +102,27 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: WithdrawCellDelegate, DepositCellDelegate {
     func didWithdraw(at: IndexPath) {
         
-        if accountValue >= 999.0 {
+        if accountValue >= 999 {
             accountValue -= amount[at.row]
-            amountCell?.amountLabel.countFromCurrent(to: accountValue, duration: 1)
+            amountCell?.amountLabel.countFromCurrent(to: Float(accountValue), duration: 1)
         }
         
         if let indexPathsForVisibleRows = mainTableView.indexPathsForVisibleRows {
                 for indexPath in indexPathsForVisibleRows {
-                    print("cellIndexPath.row = \(indexPath.row)")
                     
                     let cell = mainTableView.cellForRow(at: indexPath) as? WithdrawTableViewCell
 
-                    
                     if accountValue <= amount[indexPath.row] - 1 {
                         cell?.withdrawButton.backgroundColor = .gray
                         cell?.withdrawButton.isEnabled = false
-                        
-                        print("accountValue = \(accountValue), \namount[at.row] = \(amount[indexPath.row]) ")
 
                     }
                 }
             }
-        
     }
     
     func didDeposit() {
-        accountValue = 50000.0
+        accountValue = 50000
         amountCell?.amountLabel.countFromCurrent(to: 50000.0, duration: 1)
         
         mainTableView.reloadData()

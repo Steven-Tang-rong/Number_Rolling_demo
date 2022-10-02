@@ -29,8 +29,6 @@ class DepositTableViewCell: UITableViewCell {
     
     @IBAction func didDeposit(_ sender: Any) {
         delegate?.didDeposit()
-        
     }
-    
     
 }

@@ -11,11 +11,6 @@ protocol WithdrawCellDelegate {
     func didWithdraw(at: IndexPath)
 }
 
-extension WithdrawCellDelegate {
-    func didWithdraw(at: IndexPath) {
-        print("at = \(at)")
-    }
-}
 
 class WithdrawTableViewCell: UITableViewCell {
 
@@ -39,15 +34,11 @@ class WithdrawTableViewCell: UITableViewCell {
     @IBAction func didWithdraw(_ sender: Any) {
         if cellIndexPath != nil {
             delegate?.didWithdraw(at: cellIndexPath!)
-            //感覺無法點擊應該是寫在這
-//            withdrawButton.backgroundColor = .gray
-//            withdrawButton.isEnabled = false
         }
     }
     
     func setupCell(amount: Float) {
         withdrawLabel.text = String(format: "$ %.0f", amount)
     }
-    
     
 }
